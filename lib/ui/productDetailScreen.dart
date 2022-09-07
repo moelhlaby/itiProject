@@ -1,4 +1,5 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -6,14 +7,49 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'const/appcolors.dart';
+import 'package:iti_project/const/AppColors.dart';
+
+// import 'const/appcolors.dart';
 class ProductDetailScreen extends StatefulWidget {
   var _product;
   ProductDetailScreen(this._product);
   @override
   _ProductDetailScreenState createState() => _ProductDetailScreenState();
 }
+
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  Future addToCart() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users-cart-items");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .collection("items")
+        .doc()
+        .set({
+      "name": widget._product["product-name"],
+      "price": widget._product["product-price"],
+      "images": widget._product["product-img"],
+    }).then((value) => print("Added To Cart"));
+  }
+
+  Future addToFavourite() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    var currentUser = _auth.currentUser;
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection("users-favourite-items");
+    return _collectionRef
+        .doc(currentUser!.email)
+        .collection("items")
+        .doc()
+        .set({
+      "name": widget._product["product-name"],
+      "price": widget._product["product-price"],
+      "images": widget._product["product-img"],
+    }).then((value) => print("Added To Favourite"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,16 +70,40 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           ),
         ),
         actions: [
-          CircleAvatar(
-            radius: 15,
-            backgroundColor: AppColors.deep_orange,
-            child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(
-                  Icons.favorite_outline,
-                  color: Colors.white,
-                )),
-          )
+          StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("users-favourite-items")
+                .doc(FirebaseAuth.instance.currentUser!.email)
+                .collection("items")
+                .where("name", isEqualTo: widget._product['product-name'])
+                .snapshots(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.data == null) {
+                return Text("");
+              }
+              return Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundColor: AppColors.deep_orange,
+                  child: IconButton(
+                    onPressed: () => snapshot.data.docs.length == 0
+                        ? addToFavourite()
+                        : print("Already Added"),
+                    icon: snapshot.data.docs.length == 0
+                        ? Icon(
+                            Icons.favorite_outline,
+                            color: Colors.white,
+                          )
+                        : Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                          ),
+                  ),
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: Padding(
@@ -73,7 +133,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         enlargeStrategy: CenterPageEnlargeStrategy.height,
                         onPageChanged: (val, carouselPageChangedReason) {
                           setState(() {
-                            _dotPosition = val;
+                            // _dotPosition = val;
                           });
                         })),
               ),
@@ -84,7 +144,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 width: 1.sw,
                 height: 56.h,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => addToCart(),
                   child: Text(
                     "ADD TO CART",
                     style: TextStyle(color: Colors.white, fontSize: 18.sp),
