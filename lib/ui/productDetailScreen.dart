@@ -133,7 +133,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         enlargeStrategy: CenterPageEnlargeStrategy.height,
                         onPageChanged: (val, carouselPageChangedReason) {
                           setState(() {
-                            // _dotPosition = val;
+                            _dotPosition = val;
                           });
                         })),
               ),
