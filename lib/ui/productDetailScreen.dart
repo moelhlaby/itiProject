@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:iti_project/const/AppColors.dart';
+import '../const/AppColors.dart';
 
 // import 'const/appcolors.dart';
 class ProductDetailScreen extends StatefulWidget {
