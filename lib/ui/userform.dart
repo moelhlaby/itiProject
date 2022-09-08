@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/customButton.dart';
+import 'bottomNavBarController.dart';
 //import 'package:flutter_ecommerce/ui/bottom_nav_controller.dart';
 //import 'package:flutter_ecommerce/widgets/customButton.dart';
 //import 'package:flutter_ecommerce/widgets/myTextField.dart';
@@ -36,14 +39,14 @@ class _UserFormState extends State<UserForm> {
     var currentUser = _auth.currentUser;
 
     CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("users");
+        FirebaseFirestore.instance.collection("users-form-data");
     return _collectionRef.doc(currentUser!.email).set({
       "name": _nameController.text,
       "phone": _phoneController.text,
       "dob": _dobController.text,
       "gender": _genderController.text,
       "age": _ageController.text,
-    }); //.then((value) => Navigator.push(context, MaterialPageRoute(builder: (_)=>BottomNavController()))).catchError((error)=>print("something is wrong. $error"));
+    }).then((value) => Navigator.push(context, MaterialPageRoute(builder: (_)=>BottomNavController()))).catchError((error)=>print("something is wrong. $error"));
   }
 
   @override
@@ -125,28 +128,29 @@ class _UserFormState extends State<UserForm> {
                 SizedBox(
                   height: 200,
                 ),
-                Container(
-                  width: 300,
-                  margin: EdgeInsets.only(left: 10),
-                  decoration: BoxDecoration(
-                    color: Colors.deepOrange,
-                     borderRadius: BorderRadius.circular(20)
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Submit",
-                        style: TextStyle(
-                          fontSize: 40,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                customButton("Continue",()=>sendUserDataToDB()),
+                // Container(
+                //   width: 300,
+                //   margin: EdgeInsets.only(left: 10),
+                //   decoration: BoxDecoration(
+                //     color: Colors.deepOrange,
+                //      borderRadius: BorderRadius.circular(20)
+                //   ),
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       Text(
+                //         "Submit",
+                //         style: TextStyle(
+                //           fontSize: 40,
+                //           color: Colors.white,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       )
+                //     ],
+                //   ),
+                // ),
                //  elevated button
                //  customButton("Continue",()=>sendUserDataToDB()),
               ],

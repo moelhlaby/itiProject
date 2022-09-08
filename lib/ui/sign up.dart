@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/sign%20in.dart';
-import 'package:untitled/userform.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import './sign%20in.dart';
+import './userform.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -14,6 +17,30 @@ class _SignUpState extends State<SignUp> {
   bool visible = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  signUp() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
+      var authCredential = userCredential.user;
+      print(authCredential!.uid);
+      if (authCredential.uid.isNotEmpty) {
+        Navigator.push(context, CupertinoPageRoute(builder: (_) => UserForm()));
+      } else {
+        Fluttertoast.showToast(msg: "Something is wrong");
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        Fluttertoast.showToast(msg: "The password provided is too weak.");
+      } else if (e.code == 'email-already-in-use') {
+        Fluttertoast.showToast(
+            msg: "The account already exists for that email.");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,9 +222,10 @@ class _SignUpState extends State<SignUp> {
                       });
                       setState(() {});
                     },
-                    child: TextButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>UserForm()));
-                    },
+                    child: TextButton(
+                      onPressed: () {
+                        signUp();
+                      },
                       child: Text(
                         "Continue",
                         style: TextStyle(

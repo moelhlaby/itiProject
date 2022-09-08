@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:untitled/sign%20up.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import './sign%20up.dart';
+import 'bottomNavBarController.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -13,6 +16,34 @@ class _SignInState extends State<SignIn> {
   bool visible = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  signIn()async{
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text
+      );
+      var authCredential = userCredential.user;
+      print(authCredential!.uid);
+      if(authCredential.uid.isNotEmpty){
+        Navigator.push(context, CupertinoPageRoute(builder: (_)=>BottomNavController()));
+      }
+      else{
+        Fluttertoast.showToast(msg: "Something is wrong");
+      }
+
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Fluttertoast.showToast(msg: "No user found for that email.");
+
+      } else if (e.code == 'wrong-password') {
+        Fluttertoast.showToast(msg: "Wrong password provided for that user.");
+
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,19 +210,8 @@ class _SignInState extends State<SignIn> {
                   width: double.infinity,
                   color: Colors.black26,
                   child: MaterialButton(
-                    onPressed: () async {
-                      print(emailController.text);
-                      print(passwordController.text);
-                      FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: emailController.text,
-                              password: passwordController.text)
-                          .then((value) {
-                        print(value.user);
-                      }).catchError((error) {
-                        print(error.toString());
-                      });
-                      setState(() {});
+                    onPressed: ()  {signIn();
+
                     },
                     child: Text(
                       "Sign In",

@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iti_project/ui/homeScreen.dart';
-import 'package:iti_project/ui/splashScreen.dart';
 
 import 'ui/bottomNavBarController.dart';
 import 'ui/bottomNavPages/home.dart';
+import 'ui/sign in.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: BottomNavController(),
+          home: SignIn(),
         );
       },
     );

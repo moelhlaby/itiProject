@@ -9,7 +9,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import '../const/AppColors.dart';
 
-// import 'const/appcolors.dart';
 class ProductDetailScreen extends StatefulWidget {
   var _product;
   ProductDetailScreen(this._product);
@@ -115,7 +114,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               AspectRatio(
                 aspectRatio: 3.5,
                 child: CarouselSlider(
-                    items: widget._product['proudct-img']
+                    items: widget._product["product-img"]
                         .map<Widget>((item) => Padding(
                               padding: const EdgeInsets.only(left: 3, right: 3),
                               child: Container(
@@ -133,13 +132,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         enlargeStrategy: CenterPageEnlargeStrategy.height,
                         onPageChanged: (val, carouselPageChangedReason) {
                           setState(() {
-                            _dotPosition = val;
                           });
                         })),
               ),
-              Text(widget._product['product-name']),
-              Text(widget._product['product-description']),
-              Text(widget._product['product-price'].toString()),
+              Text(widget._product["product-name"]),
+              Text(widget._product["product-description"]),
+              Text(widget._product["product-price"].toString()),
               SizedBox(
                 width: 1.sw,
                 height: 56.h,
