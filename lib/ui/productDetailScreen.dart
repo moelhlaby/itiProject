@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../const/AppColors.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -21,7 +23,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
     CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("users-cart-items");
+    FirebaseFirestore.instance.collection("users-cart-items");
     return _collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -37,7 +39,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     var currentUser = _auth.currentUser;
     CollectionReference _collectionRef =
-        FirebaseFirestore.instance.collection("users-favourite-items");
+    FirebaseFirestore.instance.collection("users-favourite-items");
     return _collectionRef
         .doc(currentUser!.email)
         .collection("items")
@@ -88,16 +90,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   child: IconButton(
                     onPressed: () => snapshot.data.docs.length == 0
                         ? addToFavourite()
-                        : print("Already Added"),
+                        : Fluttertoast.showToast(
+                        msg: "already added"),
                     icon: snapshot.data.docs.length == 0
                         ? Icon(
-                            Icons.favorite_outline,
-                            color: Colors.white,
-                          )
+                      Icons.favorite_outline,
+                      color: Colors.white,
+                    )
                         : Icon(
-                            Icons.favorite,
-                            color: Colors.white,
-                          ),
+                      Icons.favorite,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               );
@@ -116,14 +119,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 child: CarouselSlider(
                     items: widget._product["product-img"]
                         .map<Widget>((item) => Padding(
-                              padding: const EdgeInsets.only(left: 3, right: 3),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(item),
-                                        fit: BoxFit.fitWidth)),
-                              ),
-                            ))
+                      padding: const EdgeInsets.only(left: 3, right: 3),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: NetworkImage(item),
+                                fit: BoxFit.fitWidth)),
+                      ),
+                    ))
                         .toList(),
                     options: CarouselOptions(
                         autoPlay: false,
