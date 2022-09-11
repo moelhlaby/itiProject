@@ -4,19 +4,22 @@ import 'package:flutter/material.dart';
 import '../const/AppColors.dart';
 
 Widget fetchData(String collectionName) {
+
+  final dataBase = FirebaseFirestore.instance
+      .collection(collectionName)
+      .doc(FirebaseAuth.instance.currentUser!.email)
+      .collection("items")
+      .snapshots();
+
   return StreamBuilder(
-    stream: FirebaseFirestore.instance
-        .collection(collectionName)
-        .doc(FirebaseAuth.instance.currentUser!.email)
-        .collection("items")
-        .snapshots(),
+    stream: dataBase,
     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
       if (snapshot.hasError) {
         return Center(
           child: Text("Something is wrong"),
         );
       }
-      if(snapshot.data==null){
+      if (snapshot.data == null && snapshot.data!.docs.isEmpty) {
         return Center(
           child: Text(" No Data "),
         );
@@ -26,11 +29,11 @@ Widget fetchData(String collectionName) {
           itemCount: snapshot.data == null ? 0 : snapshot.data!.docs.length,
           itemBuilder: (_, index) {
             DocumentSnapshot _documentSnapshot = snapshot.data!.docs[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0,vertical: 2),
-              child: Card(
-                elevation:3.5,
 
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 2),
+              child: Card(
+                elevation: 3.5,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
@@ -43,12 +46,12 @@ Widget fetchData(String collectionName) {
                           fit: BoxFit.cover,
                         ),
                         width: 80,
-                        height: 60,
+                        height: 70,
                         decoration: BoxDecoration(
                           color: Colors.cyanAccent,
-                          borderRadius: BorderRadius.all(Radius.circular(5),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
                           ),
-
                         ),
                       ),
                       Column(
@@ -62,7 +65,7 @@ Widget fetchData(String collectionName) {
                             height: 10,
                           ),
                           Text(
-                            "\$ ${_documentSnapshot['price']}",
+                            " ${_documentSnapshot['price']}\$",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 17,
@@ -70,7 +73,6 @@ Widget fetchData(String collectionName) {
                           ),
                         ],
                       ),
-
                       GestureDetector(
                         child: Icon(
                           Icons.remove_circle,
