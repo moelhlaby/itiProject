@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../const/appColors.dart';
+import 'bottomNavPages/about.dart';
 import 'bottomNavPages/cart.dart';
 import 'bottomNavPages/favourite.dart';
 import 'bottomNavPages/home.dart';

@@ -124,14 +124,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(item),
-                                          fit: BoxFit.fitWidth)),
+                                          fit: BoxFit.fill)),
                                 ),
                               ))
                           .toList(),
                       options: CarouselOptions(
                           autoPlay: false,
                           enlargeCenterPage: true,
-                          viewportFraction: 0.8,
+                          viewportFraction: 0.9,
                           enlargeStrategy: CenterPageEnlargeStrategy.height,
                           onPageChanged: (val, carouselPageChangedReason) {
                             setState(() {});

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:math';
 import '../const/AppColors.dart';
 
 
@@ -19,7 +19,7 @@ class _TotalPriceState extends State<TotalPrice> {
       .doc(FirebaseAuth.instance.currentUser!.email)
       .collection("items")
       .snapshots();
-  int? amount=0;
+  double? amount=0;
   int i=0;
 
 
@@ -27,15 +27,15 @@ class _TotalPriceState extends State<TotalPrice> {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: dataBase,
-        builder:  (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
 
           for(i;i<snapshot.data!.docs.length;i++){
             DocumentSnapshot _documentSnapshot = snapshot.data!.docs[i];
-            amount=(amount!+_documentSnapshot["price"]) as int?;
+            amount=(amount!+_documentSnapshot["price"]) ;
           }
 
         return Container(
-          margin: EdgeInsets.only(top: 680),
+          margin: EdgeInsets.only(top: 555),
           width: double.infinity,
           height: 100,
           decoration: BoxDecoration(
@@ -47,7 +47,7 @@ class _TotalPriceState extends State<TotalPrice> {
           ),
           child: Center(
               child: Text(
-                "Total: $amount\$ ",
+                "Total: ${amount!.roundToDouble().toString()}\$ ",
 
                 style: TextStyle(color: Colors.white, fontSize: 22),
               )),
