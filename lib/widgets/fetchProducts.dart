@@ -19,11 +19,8 @@ Widget fetchData(String collectionName) {
           child: Text("Something is wrong"),
         );
       }
-      if (snapshot.data == null && snapshot.data!.docs.isEmpty) {
-        return Center(
-          child: Text(" No Data "),
-        );
-      }
+
+
 
       return ListView.builder(
           itemCount: snapshot.data == null ? 0 : snapshot.data!.docs.length,
@@ -37,16 +34,16 @@ Widget fetchData(String collectionName) {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: Image(
                           image: NetworkImage(_documentSnapshot['images'][0]),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                         width: 80,
-                        height: 70,
+                        height: 85,
                         decoration: BoxDecoration(
                           color: Colors.cyanAccent,
                           borderRadius: BorderRadius.all(
@@ -54,25 +51,32 @@ Widget fetchData(String collectionName) {
                           ),
                         ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            _documentSnapshot['name'],
-                            style: TextStyle(fontSize: 19),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            " ${_documentSnapshot['price']}\$",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17,
-                                color: AppColors.deep_orange),
-                          ),
-                        ],
+                      SizedBox(width: 20,),
+                      Container(
+                        width: 180,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              _documentSnapshot['name'],
+                              style: TextStyle(fontSize: 17.5),
+                              maxLines: 1,
+                              overflow:TextOverflow.ellipsis,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              " \$${_documentSnapshot['price']}",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  color: AppColors.deep_orange),
+                            ),
+                          ],
+                        ),
                       ),
+                      SizedBox(width: 15,),
                       GestureDetector(
                         child: Icon(
                           Icons.remove_circle,
@@ -97,3 +101,4 @@ Widget fetchData(String collectionName) {
     },
   );
 }
+
