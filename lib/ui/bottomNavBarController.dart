@@ -17,6 +17,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
     Favourite(),
     Cart(),
     Profile(),
+    About(),
   ];
   var _currentIndex = 0;
 
@@ -55,6 +56,10 @@ class _BottomNavControllerState extends State<BottomNavController> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Person",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.info),
+            label: "About",
           ),
         ],
         onTap: (index) {
