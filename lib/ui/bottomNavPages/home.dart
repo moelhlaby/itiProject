@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
                   height: 10.h,
                 ),
                 AspectRatio(
-                  aspectRatio: 3.5,
+                  aspectRatio: 2,
                   child: CarouselSlider(
                       items: _carouselImages
                           .map((item) => Padding(
@@ -132,10 +132,9 @@ class _HomeState extends State<Home> {
                 ),
                 Expanded(
                   child: GridView.builder(
-                      scrollDirection: Axis.horizontal,
                       itemCount: _products.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 1),
+                         childAspectRatio: 0.85,crossAxisCount: 2,mainAxisSpacing: 3,crossAxisSpacing: 2),
                       itemBuilder: (_, index) {
                         return GestureDetector(
                           onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductDetailScreen(_products[index]))),
@@ -143,16 +142,17 @@ class _HomeState extends State<Home> {
                             elevation: 3,
                             child: Column(
                               children: [
-                                AspectRatio(
-                                    aspectRatio: 2,
-                                    child: Container(
-                                        color: Colors.yellow,
-                                        child: Image.network(
-                                          _products[index]["product-img"][0],
-                                        ))),
+                                Expanded(
+                                  child: Container(
+                                      color: Colors.yellow,
+                                      child: Image.network(
+                                        _products[index]["product-img"][0],
+                                        fit: BoxFit.cover,
+                                      )),
+                                ),
                                 Text("${_products[index]["product-name"]}"),
                                 Text(
-                                    "${_products[index]["product-price"].toString()}"),
+                                    "\$${_products[index]["product-price"].toString()}"),
                               ],
                             ),
                           ),
