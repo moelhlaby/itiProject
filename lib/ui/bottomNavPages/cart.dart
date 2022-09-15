@@ -11,11 +11,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  int amount =0;
-
-
-
-
+  dynamic amount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +22,7 @@ class _CartState extends State<Cart> {
             child: fetchData("users-cart-items"),
           ),
           // Container(
-          //   margin: EdgeInsets.only(top: 680),
+          //   margin: EdgeInsets.only(top:550),
           //   width: double.infinity,
           //   height: 100,
           //   decoration: BoxDecoration(
@@ -36,16 +32,22 @@ class _CartState extends State<Cart> {
           //       topRight: Radius.circular(30),
           //     ),
           //   ),
-          //   child: Center(
-          //       child: Text(
-          //     "Total: 125\$ ",
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Text(
+          //         "Total: \$$amount ",
+          //         style: TextStyle(color: Colors.white, fontSize: 22),
+          //       ),
           //
-          //     style: TextStyle(color: Colors.white, fontSize: 22),
-          //   )),
+          //     ],
+          //   ),
+          //
           // ),
-          TotalPrice()
+          TotalPrice(),
         ],
       ),
     );
   }
 }
+
