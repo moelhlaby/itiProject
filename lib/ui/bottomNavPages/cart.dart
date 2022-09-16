@@ -11,11 +11,6 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  int amount =0;
-
-
-
-
 
   @override
   Widget build(BuildContext context) {

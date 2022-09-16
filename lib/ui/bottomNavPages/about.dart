@@ -157,7 +157,7 @@ class About extends StatelessWidget {
                       width: 220,
                       alignment: Alignment.center,
                       child: Text(
-                        "Tasnim siam",
+                        "Tasneim seiam",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.black,
