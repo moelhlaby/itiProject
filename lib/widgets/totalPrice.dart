@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
 import '../const/AppColors.dart';
+
+
 
 class TotalPrice extends StatefulWidget {
   const TotalPrice({Key? key}) : super(key: key);
@@ -16,59 +19,40 @@ class _TotalPriceState extends State<TotalPrice> {
       .doc(FirebaseAuth.instance.currentUser!.email)
       .collection("items")
       .snapshots();
-  double? amount = 0;
-  int i = 0;
+  int? amount=0;
+  int i=0;
+
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: dataBase,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          for (i; i < snapshot.data!.docs.length; i++) {
+      stream: dataBase,
+        builder:  (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+
+          for(i;i<snapshot.data!.docs.length;i++){
             DocumentSnapshot _documentSnapshot = snapshot.data!.docs[i];
-            amount = (amount! + _documentSnapshot["price"]);
+            amount=(amount!+_documentSnapshot["price"]) as int?;
           }
 
-          return Container(
-            margin: EdgeInsets.only(top:535),
-            width: double.infinity,
-            padding: EdgeInsets.all(6),
-            height: 110,
-            decoration: BoxDecoration(
-              color: AppColors.deep_orange,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
+        return Container(
+          margin: EdgeInsets.only(top: 680),
+          width: double.infinity,
+          height: 100,
+          decoration: BoxDecoration(
+            color:AppColors.deep_orange,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Total price: ${amount!.roundToDouble().toString()}\$ ",
-                        style: TextStyle(color: Colors.white, fontSize:20),
-                      ),
-                      SizedBox(height: 7,),
-                      Text("Total Items: ${snapshot.data!.docs.length.toString()}",
-                          style: TextStyle(color: Colors.white, fontSize:17)),
-                    ],
-                  ),
-                ),
-                MaterialButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Check Out",
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          );
-        });
+          ),
+          child: Center(
+              child: Text(
+                "Total: $amount\$ ",
+
+                style: TextStyle(color: Colors.white, fontSize: 22),
+              )),
+        ) ;
+        }
+    );
   }
 }
