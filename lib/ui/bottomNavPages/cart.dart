@@ -11,7 +11,7 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  dynamic amount = 0;
+
 
   @override
   Widget build(BuildContext context) {
