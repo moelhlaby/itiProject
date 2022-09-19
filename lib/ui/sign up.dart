@@ -49,9 +49,9 @@ class _SignUpState extends State<SignUp> {
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          margin: EdgeInsets.only(top: 80),
+          margin: EdgeInsets.only(top: 70),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -63,7 +63,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 SizedBox(
-                  height: 80,
+                  height: 60,
                 ),
                 Expanded(
                   child: Container(
