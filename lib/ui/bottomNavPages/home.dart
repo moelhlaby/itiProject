@@ -19,6 +19,16 @@ class _HomeState extends State<Home> {
   var _dotPosition = 0;
   List _products = [];
   var _firestoreInstance = FirebaseFirestore.instance;
+  var categoryImage = [
+  ['Men', 'assets/images/category/Men.jpg'],
+  ['Women', 'assets/images/category/women.jpg'],
+  ['Kids', 'assets/images/category/kids.jpg'],
+  ['Watches', 'assets/images/category/watch.jpg'],
+  ['Shoes', 'assets/images/category/shoes.jpg'],
+  ['Sunglasses', 'assets/images/category/sunglass.jpeg'],
+  ['Sportswear', 'assets/images/category/sportwear.jpg'],
+  ['Electronics', 'assets/images/category/electronics.webp'],
+  ];
 
   fetchCarouselImages() async {
     QuerySnapshot qn =
@@ -49,6 +59,38 @@ class _HomeState extends State<Home> {
     });
 
     return qn.docs;
+  }
+  Widget buildCategoriesItem(int index) {
+    return GestureDetector(
+      onTap: ()
+    {
+      },
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            height: 130,
+            child: Image.asset((categoryImage[index][1]
+              ),fit: BoxFit.cover,width: 100,
+              height: 130,
+            ),
+          ),
+          Container(
+            child: Text(
+              categoryImage[index][0],
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            color: Colors.black.withOpacity(.6),
+            width: 100,
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -105,7 +147,8 @@ class _HomeState extends State<Home> {
                           ))
                               .toList(),
                           options: CarouselOptions(
-                              autoPlay: false,
+                            scrollPhysics: ClampingScrollPhysics(),
+                              autoPlay: true,
                               enlargeCenterPage: true,
                               viewportFraction: 0.8,
                               enlargeStrategy: CenterPageEnlargeStrategy.height,
@@ -128,6 +171,51 @@ class _HomeState extends State<Home> {
                         spacing: EdgeInsets.all(2),
                         activeSize: Size(8, 8),
                         size: Size(6, 6),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 15.h,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Categories',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 130,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return buildCategoriesItem(index);
+                                },
+                                separatorBuilder: (context, index) => SizedBox(
+                                  width: 10,
+                                ),
+                                itemCount: categoryImage.length),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'New Products',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
