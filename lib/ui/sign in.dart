@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 // import '../set.dart';
+import '../const/AppColors.dart';
 import './sign%20up.dart';
 import 'bottomNavBarController.dart';
 
@@ -48,7 +49,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.deepOrange,
+        backgroundColor: AppColors.deep_orange,
         body: Container(
           width: double.infinity,
           height: double.infinity,
@@ -61,6 +62,7 @@ class _SignInState extends State<SignIn> {
                 Text(
                   "Sign In",
                   style: TextStyle(
+                    color: Colors.white,
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
                   ),
@@ -91,7 +93,7 @@ class _SignInState extends State<SignIn> {
                             Text(
                               "Welcome Back",
                               style: TextStyle(
-                                  fontSize: 22, color: Colors.deepOrange),
+                                  fontSize: 22, color: AppColors.deep_orange),
                             ),
                             Text(
                               "Glad to see you back my buddy.",
@@ -109,7 +111,7 @@ class _SignInState extends State<SignIn> {
                                   height: 48,
                                   width: 41,
                                   decoration: BoxDecoration(
-                                      color: Colors.deepOrange,
+                                      color: AppColors.deep_orange,
                                       borderRadius: BorderRadius.circular(12)),
                                   child: Center(
                                     child: Icon(
@@ -134,7 +136,7 @@ class _SignInState extends State<SignIn> {
                                       labelText: 'EMAIL',
                                       labelStyle: TextStyle(
                                         fontSize: 15,
-                                        color: Colors.deepOrange,
+                                        color: AppColors.deep_orange,
                                       ),
                                     ),
                                   ),
@@ -149,7 +151,7 @@ class _SignInState extends State<SignIn> {
                                 height: 48,
                                 width: 41,
                                 decoration: BoxDecoration(
-                                    color: Colors.deepOrange,
+                                    color: AppColors.deep_orange,
                                     borderRadius: BorderRadius.circular(12)),
                                 child: Center(
                                   child: Icon(
@@ -182,7 +184,7 @@ class _SignInState extends State<SignIn> {
                                     labelText: 'PASSWORD',
                                     labelStyle: TextStyle(
                                       fontSize: 15,
-                                      color: Colors.deepOrange,
+                                      color: AppColors.deep_orange,
                                     ),
                                     suffixIcon: IconButton(
                                         icon: visible == false

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../const/AppColors.dart';
 
-Widget fetchData(String collectionName) {
+Widget fetchData(String collectionName,) {
 
   final dataBase = FirebaseFirestore.instance
       .collection(collectionName)
@@ -19,11 +19,8 @@ Widget fetchData(String collectionName) {
           child: Text("Something is wrong"),
         );
       }
-      
 
-
-
-      return ListView.builder(
+      return snapshot.data==null?Center(child: CircularProgressIndicator(color: AppColors.deep_orange,)):snapshot.data!.docs.isEmpty ?Center(child: Text("There is no products"),):ListView.builder(
 
           itemCount: snapshot.data == null ? 0 : snapshot.data!.docs.length,
           itemBuilder: (_, index) {

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../../const/AppColors.dart';
 import '../../widgets/fetchProducts.dart';
 import '../../widgets/totalPrice.dart';
 
@@ -16,10 +13,9 @@ class _CartState extends State<Cart> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+
         children: [
-          SafeArea(
-            child: fetchData("users-cart-items"),
-          ),
+          SafeArea(child: fetchData("users-cart-items")),
           // Container(
           //   margin: EdgeInsets.only(top: 680),
           //   width: double.infinity,

@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/customButton.dart';
 import 'bottomNavBarController.dart';
-//import 'package:flutter_ecommerce/ui/bottom_nav_controller.dart';
-//import 'package:flutter_ecommerce/widgets/customButton.dart';
-//import 'package:flutter_ecommerce/widgets/myTextField.dart';
 
 class UserForm extends StatefulWidget {
   @override
@@ -19,7 +16,7 @@ class _UserFormState extends State<UserForm> {
   TextEditingController _dobController = TextEditingController();
   TextEditingController _genderController = TextEditingController();
   TextEditingController _ageController = TextEditingController();
-  List<String> gender = ["Male", "Female", "Other"];
+  List<String> gender = ["Male", "Female",];
 
   Future<void> _selectDateFromPicker(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -129,31 +126,7 @@ class _UserFormState extends State<UserForm> {
                   height: 200,
                 ),
                 customButton("Continue",()=>sendUserDataToDB()),
-                // Container(
-                //   width: 300,
-                //   margin: EdgeInsets.only(left: 10),
-                //   decoration: BoxDecoration(
-                //     color: Colors.deepOrange,
-                //      borderRadius: BorderRadius.circular(20)
-                //   ),
-                //   child: Row(
-                //     crossAxisAlignment: CrossAxisAlignment.center,
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       Text(
-                //         "Submit",
-                //         style: TextStyle(
-                //           fontSize: 40,
-                //           color: Colors.white,
-                //           fontWeight: FontWeight.bold,
-                //         ),
-                //       )
-                //     ],
-                //   ),
-                // ),
-               //  elevated button
-               //  customButton("Continue",()=>sendUserDataToDB()),
-              ],
+               ],
             ),
           ),
         ),

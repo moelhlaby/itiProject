@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:iti_project/const/appColors.dart';
 
 import '../../widgets/customButton.dart';
 
@@ -83,7 +84,7 @@ class _ProfileState extends State<Profile> {
                      backgroundColor: Colors.white,
                     maxRadius: 60,
 
-                    backgroundImage: AssetImage("assets/female.png") ,
+                    backgroundImage: AssetImage(data["gender"]=="female"?"assets/female.png":"assets/male.png") ,
                   )],
               ),
             ),
@@ -119,16 +120,16 @@ class _ProfileState extends State<Profile> {
                 ],
               ),
             ),
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.circular(20),
-              ),
-              child: Container(
-                  width: 200,
-                  decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-                  child: customButton("Edit Profile",  () {})),
-            ),
+            // Card(
+            //   shape: RoundedRectangleBorder(
+            //     borderRadius: BorderRadiusDirectional.circular(20),
+            //   ),
+            //   child: Container(
+            //       width: 200,
+            //       decoration:
+            //       BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
+            //       child: customButton("Edit Profile",  (){})),
+            // ),
           ],
         ),
       ),
@@ -157,7 +158,7 @@ class _ProfileState extends State<Profile> {
           builder: (BuildContext context, AsyncSnapshot snapshot){
             var data = snapshot.data;
             if(data==null){
-              return Center(child: CircularProgressIndicator(),);
+              return Center(child: CircularProgressIndicator(color: AppColors.deep_orange,),);
             }
             return setDataToTextField(data);
           },

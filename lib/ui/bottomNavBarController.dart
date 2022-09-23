@@ -29,7 +29,7 @@ class _BottomNavControllerState extends State<BottomNavController> {
         elevation: 0,
         title: Text(
           "E-Commerce",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: AppColors.deep_orange),
         ),
         centerTitle: true,
         automaticallyImplyLeading: false,
