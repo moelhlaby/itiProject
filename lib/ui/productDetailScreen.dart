@@ -114,17 +114,18 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 AspectRatio(
-                  aspectRatio: 3.5,
+                  aspectRatio:1.8,
                   child: CarouselSlider(
                       items: widget._product["product-img"]
                           .map<Widget>((item) => Padding(
                                 padding:
                                     const EdgeInsets.only(left: 3, right: 3),
                                 child: Container(
+
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: NetworkImage(item),
-                                          fit: BoxFit.fill)),
+                                          fit: BoxFit.fitHeight)),
                                 ),
                               ))
                           .toList(),

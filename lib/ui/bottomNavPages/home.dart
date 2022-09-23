@@ -235,20 +235,23 @@ class _HomeState extends State<Home> {
                               onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (_)=>ProductDetailScreen(_products[index]))),
                               child: Card(
                                 elevation: 3,
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                          color: Colors.yellow,
-                                          child: Image.network(
-                                            _products[index]["product-img"][0],
-                                            fit: BoxFit.cover,
-                                          )),
-                                    ),
-                                    Text("${_products[index]["product-name"]}"),
-                                    Text(
-                                        "\$${_products[index]["product-price"].toString()}"),
-                                  ],
+                                child: Container(
+                                  height: 200,
+                                  child: Column(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                            color: Colors.yellow,
+                                            child:Image(image:NetworkImage(
+                                              _products[index]["product-img"][0],
+
+                                            ), fit: BoxFit.cover,) ),
+                                      ),
+                                      Text("${_products[index]["product-name"]}"),
+                                      Text(
+                                          "\$${_products[index]["product-price"].toString()}",style: TextStyle(fontWeight: FontWeight.bold),),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
