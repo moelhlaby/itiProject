@@ -84,7 +84,7 @@ class _ProfileState extends State<Profile> {
                      backgroundColor: Colors.white,
                     maxRadius: 60,
 
-                    backgroundImage: AssetImage(data["gender"]=="female"?"assets/female.png":"assets/male.png") ,
+                    backgroundImage: AssetImage(data["gender"]=="Female"?"assets/female.png":"assets/male.png") ,
                   )],
               ),
             ),
