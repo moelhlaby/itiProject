@@ -122,14 +122,22 @@ class _SignUpState extends State<SignUp> {
                                   width: 10,
                                 ),
                                 Expanded(
-                                  child: TextField(
+                                  child: TextFormField(
                                     controller: emailController,
+                                    validator: (val) {
+                                      if (val!.isEmpty || !val.contains('@')) {
+                                        return 'Invalid email!';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
                                       hintText: "something@gmail.com",
                                       hintStyle: TextStyle(
                                         fontSize: 14,
-                                        color: Color(0xFF414041),
+                                        color: Colors.grey,
                                       ),
+
                                       labelText: 'EMAIL',
                                       labelStyle: TextStyle(
                                         fontSize: 15,
@@ -163,6 +171,12 @@ class _SignUpState extends State<SignUp> {
                               ),
                               Expanded(
                                 child: TextFormField(
+                                  validator: (val) {
+                                    if (val!.isEmpty || val.length < 5) {
+                                      return 'Password is too short';
+                                    }
+                                    return null;
+                                  },
                                   controller: passwordController,
                                   keyboardType: TextInputType.visiblePassword,
                                   obscureText: visible,
@@ -172,12 +186,14 @@ class _SignUpState extends State<SignUp> {
                                   onChanged: (value) {
                                     print(value);
                                   },
+
                                   //obscureText: _obscureText,
                                   decoration: InputDecoration(
+
                                     hintText: "password must be 6 character",
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF414041),
+                                      color: Colors.grey,
                                     ),
                                     labelText: 'PASSWORD',
                                     labelStyle: TextStyle(

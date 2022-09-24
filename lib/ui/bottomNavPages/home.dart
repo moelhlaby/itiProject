@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
 
                               enlargeCenterPage: true,
                               viewportFraction: 0.8,
-                              enlargeStrategy: CenterPageEnlargeStrategy.height,
+                              enlargeStrategy: CenterPageEnlargeStrategy.scale,
                               onPageChanged: (val, carouselPageChangedReason) {
                                 setState(() {
                                   _dotPosition = val;

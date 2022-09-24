@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
 // import '../set.dart';
 import '../const/AppColors.dart';
 import './sign%20up.dart';
 import 'bottomNavBarController.dart';
-
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -20,28 +20,24 @@ class _SignInState extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  signIn()async{
+  signIn() async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text
-      );
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailController.text, password: passwordController.text);
       var authCredential = userCredential.user;
       print(authCredential!.uid);
-      if(authCredential.uid.isNotEmpty){
-        Navigator.push(context, CupertinoPageRoute(builder: (_)=>BottomNavController()));
-      }
-      else{
+      if (authCredential.uid.isNotEmpty) {
+        Navigator.push(
+            context, CupertinoPageRoute(builder: (_) => BottomNavController()));
+      } else {
         Fluttertoast.showToast(msg: "Something is wrong");
       }
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Fluttertoast.showToast(msg: "No user found for that email.");
-
       } else if (e.code == 'wrong-password') {
         Fluttertoast.showToast(msg: "Wrong password provided for that user.");
-
       }
     } catch (e) {
       print(e);
@@ -127,13 +123,20 @@ class _SignInState extends State<SignIn> {
                                   width: 10,
                                 ),
                                 Expanded(
-                                  child: TextField(
+                                  child: TextFormField(
+                                    validator: (val) {
+                                      if (val!.isEmpty || !val.contains('@')) {
+                                        return 'Invalid email!';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.emailAddress,
                                     controller: emailController,
                                     decoration: InputDecoration(
                                       hintText: "something@gmail.com",
                                       hintStyle: TextStyle(
                                         fontSize: 14,
-                                        color: Color(0xFF414041),
+                                        color: Colors.grey,
                                       ),
                                       labelText: 'EMAIL',
                                       labelStyle: TextStyle(
@@ -171,6 +174,12 @@ class _SignInState extends State<SignIn> {
                                   controller: passwordController,
                                   keyboardType: TextInputType.visiblePassword,
                                   obscureText: visible,
+                                  validator: (val) {
+                                    if (val!.isEmpty || val.length < 5) {
+                                      return 'Password is too short!';
+                                    }
+                                    return null;
+                                  },
                                   onFieldSubmitted: (value) {
                                     print(value);
                                   },
@@ -178,10 +187,11 @@ class _SignInState extends State<SignIn> {
                                     print(value);
                                   },
                                   decoration: InputDecoration(
-                                    hintText: "password must be 6 character",
+                                    hintText:
+                                        "password must be more than 6 character",
                                     hintStyle: TextStyle(
                                       fontSize: 14,
-                                      color: Color(0xFF414041),
+                                      color: Colors.grey,
                                     ),
                                     labelText: 'PASSWORD',
                                     labelStyle: TextStyle(
@@ -214,8 +224,8 @@ class _SignInState extends State<SignIn> {
                   width: double.infinity,
                   color: Colors.black26,
                   child: MaterialButton(
-                    onPressed: ()  {signIn();
-
+                    onPressed: () {
+                      signIn();
                     },
                     child: Text(
                       "Sign In",
