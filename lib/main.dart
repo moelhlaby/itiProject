@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iti_project/ui/bottomNavPages/cart.dart';
 import 'package:iti_project/ui/homeScreen.dart';
-import 'package:iti_project/ui/set.dart';
 
 import 'ui/bottomNavBarController.dart';
 import 'ui/bottomNavPages/home.dart';
