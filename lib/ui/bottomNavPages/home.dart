@@ -142,13 +142,14 @@ class _HomeState extends State<Home> {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(item),
-                                      fit: BoxFit.fitWidth)),
+                                      fit: BoxFit.fill)),
                             ),
                           ))
                               .toList(),
                           options: CarouselOptions(
                             scrollPhysics: ClampingScrollPhysics(),
                               autoPlay: true,
+
                               enlargeCenterPage: true,
                               viewportFraction: 0.8,
                               enlargeStrategy: CenterPageEnlargeStrategy.height,

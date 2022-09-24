@@ -1,12 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iti_project/ui/bottomNavPages/cart.dart';
-import 'package:iti_project/ui/homeScreen.dart';
 
-import 'ui/bottomNavBarController.dart';
-import 'ui/bottomNavPages/home.dart';
-import 'ui/sign in.dart';
+import 'package:iti_project/ui/homeScreen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

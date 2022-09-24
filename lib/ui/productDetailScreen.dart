@@ -31,7 +31,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       "name": widget._product["product-name"],
       "price": widget._product["product-price"],
       "images": widget._product["product-img"],
-    }).then((value) => print("Added To Cart"));
+    }).then((value) =>  Fluttertoast.showToast(msg: "Added To The Cart"));
   }
 
   Future addToFavourite() async {
@@ -88,7 +88,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   backgroundColor: AppColors.deep_orange,
                   child: IconButton(
                     onPressed: () => snapshot.data.docs.length == 0
-                        ? addToFavourite()
+                        ? addToFavourite().then((value) =>  Fluttertoast.showToast(msg: "Added To Favorite"))
                         : Fluttertoast.showToast(msg: "already added"),
                     icon: snapshot.data.docs.length == 0
                         ? Icon(
